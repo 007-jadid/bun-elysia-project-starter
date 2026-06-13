@@ -1,0 +1,68 @@
+{
+  "name": "bun-elysia-mongo-starter",
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "bun": ">=1.38"
+  },
+  "scripts": {
+    "dev": "bun run typecheck && bun --watch src/index.ts",
+    "dev:skip-check": "bun --watch src/index.ts",
+    "start": "bun run typecheck && NODE_ENV=production bun run src/index.ts",
+    "start:skip-check": "NODE_ENV=production bun run src/index.ts",
+    "lint": "bunx @biomejs/biome check --write .",
+    "format": "bunx @biomejs/biome format --write .",
+    "typecheck": "bun x tsc --noEmit",
+    "check": "bun run typecheck && bun run lint",
+    "docker:dev": "docker compose -f docker-compose.dev.yml up -d",
+    "clean": "rm -rf node_modules .bun"
+  },
+  "dependencies": {
+    "@elysiajs/bearer": "^1.4.4",
+    "@elysiajs/cors": "^1.4.2",
+    "@elysiajs/jwt": "^1.4.2",
+    "@elysiajs/openapi": "^1.4.15",
+    "@elysiajs/opentelemetry": "^1.4.11",
+    "@grpc/grpc-js": "^1.14.3",
+    "@grpc/proto-loader": "^0.8.1",
+    "@opentelemetry/exporter-metrics-otlp-grpc": "^0.218.0",
+    "@opentelemetry/exporter-metrics-otlp-proto": "^0.218.0",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.218.0",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.218.0",
+    "@opentelemetry/instrumentation-amqplib": "^0.65.0",
+    "@opentelemetry/instrumentation-grpc": "^0.218.0",
+    "@opentelemetry/instrumentation-http": "^0.218.0",
+    "@opentelemetry/instrumentation-ioredis": "^0.66.0",
+    "@opentelemetry/instrumentation-mongoose": "^0.64.0",
+    "@opentelemetry/instrumentation-pino": "^0.64.0",
+    "@opentelemetry/instrumentation-runtime-node": "^0.31.0",
+    "@opentelemetry/instrumentation-undici": "^0.28.0",
+    "@opentelemetry/resources": "^2.7.1",
+    "@opentelemetry/sdk-metrics": "^2.7.1",
+    "@opentelemetry/sdk-trace-node": "^2.7.1",
+    "@opentelemetry/semantic-conventions": "^1.41.1",
+    "@sinclair/typebox": "^0.34.49",
+    "amqplib": "^2.0.1",
+    "elysia": "^1.4.28",
+    "elysia-rate-limit": "^4.6.2",
+    "mongoose": "^9.6.2",
+    "mongoose-paginate-v2": "^1.9.4",
+    "nanoid": "^5.1.11",
+    "pino": "^10.3.1",
+    "pino-loki": "^3.0.0",
+    "pino-pretty": "^13.1.3",
+    "uuid": "^14.0.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "@types/amqplib": "^0.10.8",
+    "@types/bun": "^1.3.14",
+    "@types/mongoose-paginate-v2": "^1.6.5",
+    "@types/uuid": "^11.0.0",
+    "typescript": "^6.0.3"
+  },
+  "trustedDependencies": [
+    "protobufjs"
+  ]
+}

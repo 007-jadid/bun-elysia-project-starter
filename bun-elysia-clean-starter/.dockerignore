@@ -1,0 +1,28 @@
+# Dependencies are installed inside the image (install stage); the host tree
+# must never leak in — it would overwrite the frozen-lockfile install.
+node_modules
+
+# Build output is produced inside the image
+dist
+
+# Local-only env files. Production env is injected by the platform, not copied
+# from the build context.
+.env
+.env.local
+.env.development
+.env.test
+
+# VCS / editor / docker
+# .gitignore is NOT excluded: biome.json sets vcs.useIgnoreFile=true, so
+# `bun run verify` in the build stage needs it present in /app.
+.git
+.dockerignore
+Dockerfile
+docker-compose*.yml
+.vscode
+.idea
+.claude
+
+# Logs and misc
+*.log
+coverage

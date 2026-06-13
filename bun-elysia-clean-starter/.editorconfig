@@ -1,0 +1,15 @@
+# Baseline editor settings for any editor (matches biome.json).
+# Biome handles TS/JS/JSON; this covers everything else consistently.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 80
+
+[*.md]
+trim_trailing_whitespace = false

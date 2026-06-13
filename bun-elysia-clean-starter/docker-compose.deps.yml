@@ -1,0 +1,75 @@
+# Local infrastructure DEPENDENCIES for this service.
+# This does NOT run the service itself — run that locally with `bun dev`.
+# Usage:
+#   bun run deps:up      # start everything in the background
+#   bun run deps:down    # stop
+#   bun run deps:reset   # wipe volumes + restart fresh
+#
+# Defaults below match .env.local so the app boots with zero extra config.
+
+name: app-deps
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: app-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${WRITE_DB_USER:-app}
+      POSTGRES_PASSWORD: ${WRITE_DB_PASS:-app_local_pass}
+      POSTGRES_DB: ${WRITE_DB_NAME:-app_db}
+    ports:
+      # host:container — host side defaults to 5433 to avoid clashing with a
+      # local/system Postgres already on 5432. Postgres always listens on 5432
+      # *inside* the container. Override the host port with WRITE_DB_PORT.
+      - "${WRITE_DB_PORT:-5433}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${WRITE_DB_USER:-app} -d ${WRITE_DB_NAME:-app_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: app-redis
+    restart: unless-stopped
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: app-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-guest}
+    ports:
+      - "5672:5672" # AMQP
+      - "15672:15672" # management UI -> http://localhost:15672
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+# NOTE: No OTEL collector here.
+#  - Traces: exported via OTLP to your collector / APM backend when enabled
+#    (see OTEL_* in .env.local).
+#  - Logs: written to stdout (pino) — ship them however you like.
+
+volumes:
+  pgdata:
+  redisdata:
+  rabbitmqdata:

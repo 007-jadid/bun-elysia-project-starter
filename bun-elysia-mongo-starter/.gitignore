@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+.bun/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment files
+# Committed (non-secret templates): .env.example, .env.local, .env.development
+# Ignored (personal/secret overrides):
+.env
+.env.docker
+.env.local.local
+.env.development.local
+.env.production.local
+.env.*.local
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+
+# Agent/AI directories
+.agent/
+.agents/
+.claude/
+.cursor/
+.gemini/

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package healthPackage;
+
+// Minimal generic gRPC surface for the starter. Replace/extend with your own
+// service once you have real RPCs. Generate typed stubs with a proto codegen
+// step if you want full type-safety on the handlers.
+service Health {
+  // Liveness ping — returns ok=true while the gRPC server is serving.
+  rpc Check (Empty) returns (HealthResponse);
+}
+
+message Empty {}
+
+message HealthResponse {
+  bool ok = 1;
+  string message = 2;
+}

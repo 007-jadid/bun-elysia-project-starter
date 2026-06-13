@@ -1,0 +1,43 @@
+{
+  // Biome is the single source of truth for formatting + linting.
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+
+  // On save: organize imports + apply safe Biome lint fixes.
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit",
+    "source.fixAll.biome": "explicit"
+  },
+
+  // Make Biome the formatter for every language it supports,
+  // so per-user editor defaults can't drift.
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+
+  // Keep editor whitespace behavior aligned with biome.json / .editorconfig.
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true
+
+  // NOTE: workspace TypeScript version is intentionally NOT pinned here —
+  // the setting key differs across editors (VS Code: "typescript.tsdk",
+  // Cursor/Windsurf: "js/ts.tsdk.path") and warns in whichever it isn't.
+  // The real type-check guarantee is `bun run typecheck`, which uses the
+  // `typescript` devDependency identically for everyone, editor-independent.
+}

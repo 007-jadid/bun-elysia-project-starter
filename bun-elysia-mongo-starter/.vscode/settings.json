@@ -1,0 +1,44 @@
+{
+  // Biome as default formatter
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit",
+    "quickfix.biome": "explicit"
+  },
+
+  // Match biome.json formatting config
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  // Disable competing formatters for TS/JS
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+
+  // TypeScript settings
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+
+  // File associations
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.bun": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.bun": true,
+    "**/src/infrastructure/grpc/generated": true
+  }
+}
